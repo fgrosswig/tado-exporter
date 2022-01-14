@@ -11,5 +11,4 @@ install:
   - docker run -d -p 127.0.0.1:9898:9898 -t tadeo-exporter:dev 
 
 script:
-  - docker logs tadeo-exporter:dev --tail 50
   - docker ps | grep -q tadeo-exporter:dev
