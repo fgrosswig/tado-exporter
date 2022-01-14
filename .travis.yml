@@ -1,7 +1,6 @@
 language: python
 python:
   - 2.7
-  - 3.2
   - 3.5
 
 services:
@@ -9,7 +8,7 @@ services:
 
 install:
   - docker build -t tadeo-exporter:dev .
-  - docker run -d -p 127.0.0.1:9898:9898 --name tadeo-exporter:dev tadeo-exporter
+  - docker run -d -p 127.0.0.1:9898:9898 --name tadeo-exporter:dev tadeo-exporter:dev 
 
 script:
-  - docker ps | grep -q tadeo-exporter
+  - docker ps | grep -q tadeo-exporter:dev 
