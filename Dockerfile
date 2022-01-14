@@ -11,6 +11,9 @@ RUN rustup target add x86_64-unknown-linux-musl
 RUN cargo build --target x86_64-unknown-linux-musl --release
 
 FROM scratch
+LABEL version="0.1.1"
+LABEL maintaner="Falk Grosswig"
+LABEL release-date="2022-01-14"
 LABEL name="tado-exporter"
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
