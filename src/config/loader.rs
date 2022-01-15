@@ -5,7 +5,7 @@ pub struct Config {
     pub username: String,
     pub password: String,
     pub client_secret: String,
-    pub port: u64,
+    pub port: u16,
 }
 
 impl Config {
@@ -23,7 +23,7 @@ impl Config {
 pub fn load() -> Config {
     let config = Config {
         port: match env::var("EXPORTER_PORT") {
-            Ok(v) => v.parse::<u64>().unwrap(),
+            Ok(v) => v.parse::<u16>().unwrap(),
             Err(_) => 10,
         },
         ticker: match env::var("EXPORTER_TICKER") {
