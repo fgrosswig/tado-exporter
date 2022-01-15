@@ -26,7 +26,7 @@ async fn main() {
     run_ticker(config);
 
     // set up http server
-    let addr = ([0, 0, 0, 0], 9898).into();
+    let addr = ([0, 0, 0, 0], 9899).into();
     info!("starting tado° exporter on address: {:?}", addr);
 
     let make_svc = make_service_fn(|_conn| async {

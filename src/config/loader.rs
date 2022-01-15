@@ -5,11 +5,13 @@ pub struct Config {
     pub username: String,
     pub password: String,
     pub client_secret: String,
+    pub port: u64,
 }
 
 impl Config {
     pub fn print(&self) {
         println!("--- tado° exporter configuration ---");
+        println!("Running on port: {}", self.port);
         println!("Ticker seconds: {}", self.ticker);
         println!("Username: {}", self.username);
         println!("Password: <not printed>");
@@ -20,6 +22,10 @@ impl Config {
 
 pub fn load() -> Config {
     let config = Config {
+        port: match env::var("EXPORTER_PORT") {
+            Ok(v) => v.parse::<u64>().unwrap(),
+            Err(_) => 10,
+        },
         ticker: match env::var("EXPORTER_TICKER") {
             Ok(v) => v.parse::<u64>().unwrap(),
             Err(_) => 10,
@@ -53,12 +59,14 @@ mod tests {
         let config = load();
 
         // then we should load default values
+        assert_eq!(config.port, 9898);
         assert_eq!(config.ticker, 10);
         assert_eq!(config.username, "");
         assert_eq!(config.password, "");
         assert_eq!(config.client_secret, "wZaRN7rpjn3FoNyF5IFuxg9uMzYJcvOoQ8QWiIqS3hfk6gLhVlG57j5YNoZL2Rtc");
 
         // given the following environment variable values
+        env::set_var("EXPORTER_PORT", "9898");
         env::set_var("EXPORTER_USERNAME", "test-user");
         env::set_var("EXPORTER_PASSWORD", "123Password!");
         env::set_var("EXPORTER_TICKER", "30");
@@ -68,6 +76,7 @@ mod tests {
         let config = load();
 
         // then we should have these values set
+        assert_eq!(config.port, 9898);
         assert_eq!(config.ticker, 30);
         assert_eq!(config.username, "test-user");
         assert_eq!(config.password, "123Password!");
