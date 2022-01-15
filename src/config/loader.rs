@@ -24,7 +24,7 @@ pub fn load() -> Config {
     let config = Config {
         port: match env::var("EXPORTER_PORT") {
             Ok(v) => v.parse::<u16>().unwrap(),
-            Err(_) => 10,
+            Err(_) => 9899,
         },
         ticker: match env::var("EXPORTER_TICKER") {
             Ok(v) => v.parse::<u64>().unwrap(),
