@@ -59,7 +59,7 @@ mod tests {
         let config = load();
 
         // then we should load default values
-        assert_eq!(config.port, 9898);
+        assert_eq!(config.port, 9899);
         assert_eq!(config.ticker, 10);
         assert_eq!(config.username, "");
         assert_eq!(config.password, "");
